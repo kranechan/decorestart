@@ -20,8 +20,8 @@ from threading import Event
 from typing import Optional
 
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+#from selenium.webdriver.chrome.service import Service
+#from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -69,10 +69,13 @@ class RouterRebooter:
         opts.add_argument("--no-sandbox")
         opts.add_argument("--disable-dev-shm-usage")
         opts.add_argument("--disable-gpu")
-        opts.add_argument("--window-size=1920,1080")
+        opts.add_argument("--window-size=1280,720") #resize for raspberry pi 3 plus
 
-        service = Service(ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=service, options=opts)
+        #ChromeDriverManager() may not work with raspberry pi 3 plus - taken out
+        #service = Service(ChromeDriverManager().install())
+        #driver = webdriver.Chrome(service=service, options=opts)
+
+        driver = webdriver.Chrome(options=opts)
         wait = WebDriverWait(driver, self.cfg.poll_max)
 
         logging.info("→ Opening router reboot page")
@@ -147,13 +150,13 @@ class Monitor:
                     rebooter.reboot()
                     self._last_up = time.monotonic()
                     logging.info("✔ Router back online; uptime counter reset")
-                else:
-                    logging.debug("✓ Connection OK")
+                #else:
+                    #logging.debug("✓ Connection OK") #taken out to not over-log
             except Exception:
                 logging.exception("‼️ Error during monitoring cycle")
 
             wait = random.randint(self.cfg.poll_min, self.cfg.poll_max)
-            logging.debug(f"⏱ Sleeping {wait}s before next check")
+            #logging.debug(f"⏱ Sleeping {wait}s before next check") #taken out to not over-log
             self._stop.wait(timeout=wait)
 
         logging.info("■ Monitor loop terminated")
