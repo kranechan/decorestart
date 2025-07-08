@@ -224,7 +224,6 @@ docker run -v $(pwd)/cred.txt:/app/cred.txt decorestart
 ## 📦 requirements.txt
 ```text
 selenium>=4.8.0,<5.0.0
-webdriver-manager>=3.8.6,<4.0.0
 ```
 
 © 2025 Krane Chan
