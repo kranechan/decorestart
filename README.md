@@ -89,23 +89,27 @@ sudo apt update
 sudo apt install python3 python3-venv python3-pip
 ```
 
-### 2. Clone & prepare
+### 2. Clone this repo
 ```bash
 git clone https://github.com/kranechan/decorestart.git
 cd decorestart
+```
+
+### 3. (Optional) Create & activate a Python virtual environment
+```bash
 python3 -m venv venv
 source venv/bin/activate    # Windows: venv\Scripts\activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 3. Add your router password
+### 4. Add your router password
 ```bash
 echo "YOUR_ROUTER_PASSWORD" > cred.txt
 chmod 600 cred.txt
 ```
 
-### 4. Execute
+### 5. Execute
 ```bash
 python deco5g_monitor.py
 # option to run with configuration/command line:
@@ -125,17 +129,22 @@ sudo apt install -y \
   chromium-browser chromium-chromedriver
 ```
 
-### 2. Clone & venv
+### 2. Clone this repo
 ```bash
 git clone https://github.com/kranechan/decorestart.git
-cd decorestart #important for next step
+cd decorestart
+```
+
+### 3. (Optional) Create & activate a Python virtual environment
+*May not work on certain raspberry pi*
+```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 3. Credentials & run
+### 4. Credentials & run
 ```bash
 echo "YOUR_ROUTER_PASSWORD" > cred.txt
 chmod 600 cred.txt
@@ -170,7 +179,6 @@ Environment=PATH=/home/pi/decorestart/venv/bin:/usr/bin:/bin
 #ExecStart=/usr/bin/python3 /home/pi/decorestart/deco5g_monitor.py \
 #  --cred-file /home/pi/decorestart/cred.txt
 #Environment=PATH=/usr/bin:/bin
-
 
 [Install]
 WantedBy=multi-user.target
