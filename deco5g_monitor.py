@@ -69,7 +69,7 @@ class RouterRebooter:
         opts.add_argument("--no-sandbox")
         opts.add_argument("--disable-dev-shm-usage")
         opts.add_argument("--disable-gpu")
-        opts.add_argument("--window-size=1280,720") #resize for raspberry pi 3 plus
+        opts.add_argument("--window-size=800,600") #resize for raspberry pi 3 plus
 
         #ChromeDriverManager() may not work with raspberry pi 3 plus - taken out
         #service = Service(ChromeDriverManager().install())
@@ -148,10 +148,19 @@ class Monitor:
                     uptime = self._format_uptime(time.monotonic() - self._last_up)
                     logging.warning(f"✖ Connection lost (was up {uptime}), rebooting…")
                     rebooter.reboot()
+                    self._stop.wait(timeout=self.cfg.poll_min) #delay to let router restart
+
+                    while not self._stop.is_set():
+                        if self._is_connected(self.cfg.remote_host):
+                            break
+                        time.sleep(5)
+
                     self._last_up = time.monotonic()
                     logging.info("✔ Router back online; uptime counter reset")
+
                 #else:
                     #logging.debug("✓ Connection OK") #taken out to not over-log
+
             except Exception:
                 logging.exception("‼️ Error during monitoring cycle")
 
