@@ -69,7 +69,7 @@ class RouterRebooter:
         opts.add_argument("--no-sandbox")
         opts.add_argument("--disable-dev-shm-usage")
         opts.add_argument("--disable-gpu")
-        opts.add_argument("--window-size=800,600") #resize for raspberry pi 3 plus
+        opts.add_argument("--start-maximized")
 
         #ChromeDriverManager() may not work with raspberry pi 3 plus - taken out
         #service = Service(ChromeDriverManager().install())
