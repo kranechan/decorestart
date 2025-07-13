@@ -226,4 +226,7 @@ docker run -v $(pwd)/cred.txt:/app/cred.txt decorestart
 selenium>=4.8.0,<5.0.0
 ```
 
+## 📋 Results
+![Terminal Outlook](assets/Screenshot%20Logging.png)
+
 © 2025 Krane Chan
